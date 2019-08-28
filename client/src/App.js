@@ -145,12 +145,14 @@ class App extends Component {
                   <span style={{ color: 'gray' }}> data: </span>
                   {dat.message}
                 </li> */}
+                <Row>
                   <Button color="danger" onClick={() => this.deleteFromDB(dat.id)}>
                     DELETE
                   </Button>
-                  <Modal id={dat.id} title={dat.title} message={dat.message} />
-                </Card>
-                <br />
+                  <Modal id={dat.id} title={dat.title} message={dat.message} updateDB={this.updateDB}/>
+                  </Row>
+              </Card>
+              <br/>
               </Col>
             ))}
 
