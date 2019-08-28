@@ -41,13 +41,24 @@ router.get('/getData', (req, res) => {
 
 // this is our update method
 // this method overwrites existing data in our database
-router.put('/updateData', (req, res) => {
+router.post('/updateData', (req, res) => {
   const { id, update } = req.body;
   Data.findByIdAndUpdate(id, update, (err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
 });
+
+// this is our create method
+// this method adds new data in our database
+router.post('/updateData', (req, res, next) => {
+  Data.findByIdAndUpdate({ id: Data.id }, req.body).then(function () {
+    Data.findOne({ id: Data.id }).then(function (data) {
+      res.send(data);
+    })
+  })
+});
+
 
 // this is our delete method
 // this method removes existing data in our database
@@ -59,14 +70,14 @@ router.delete('/deleteData', (req, res) => {
   });
 });
 
-// this is our create methid
+// this is our create method
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
   let data = new Data();
 
   const { id, message, title } = req.body;
 
-  if ((!id && id !== 0) || !message ) {
+  if ((!id && id !== 0) || !message) {
     return res.json({
       success: false,
       error: 'INVALID INPUTS',

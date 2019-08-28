@@ -1,12 +1,15 @@
 import React from 'react';
+import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
+
 
 class EditModal extends React.Component {
     propTypes = {
     message: PropTypes.String,
     title: PropTypes.String,
-    id: PropTypes.String
+    id: PropTypes.String,
+    data: PropTypes.any
     };
     
   constructor(props) {
@@ -15,9 +18,11 @@ class EditModal extends React.Component {
       modal: false,
       message: null,
       title: null,
+      updateTitle: this.props.title,
+      updateMessage: this.props.message,
       data: [],
       idToDelete: null,
-      idToUpdate: null,
+      idToUpdate: this.props.id,
       objectToUpdate: null
     };
 
@@ -30,6 +35,16 @@ class EditModal extends React.Component {
     }));
   }
 
+    updateDB = (idToUpdate, updateTitle, updateMessage) => {
+
+    axios.put('http://localhost:3001/api/putData', {
+      id: parseInt(idToUpdate),
+        title: updateTitle, 
+        message: updateMessage
+      
+    });
+  };
+
   render() {
     return (
       <div>
@@ -37,7 +52,7 @@ class EditModal extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>
               <Input  
-              onChange={(e) => this.setState({ title: e.target.value })}
+              onChange={(e) => this.setState({ updateTitle: e.target.value })}
               type="Title" 
               name="title" 
               id="newTitle" 
@@ -47,7 +62,7 @@ class EditModal extends React.Component {
         </ModalHeader>
           <ModalBody>
             <Input 
-              onChange={(e) => this.setState({ message: e.target.value })}
+              onChange={(e) => this.setState({ updateMessage: e.target.value })}
               type="textarea" 
               name="note" 
               id="newtitle" 
@@ -56,7 +71,7 @@ class EditModal extends React.Component {
               className="no-border"/>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.props.updateDB(this.props.id, this.state.title, this.state.message)}>Update Note</Button>{' '}
+            <Button color="primary" onClick={() => this.updateDB(this.props.id, this.state.updateTitle, this.state.updateMessage)}>Update Note</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
