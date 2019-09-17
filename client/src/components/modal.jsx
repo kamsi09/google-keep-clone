@@ -38,7 +38,7 @@ class EditModal extends React.Component {
 
     updateDB = (idToUpdate, updateTitle, updateMessage) => {
 
-    axios.put('http://localhost:3001/api/putData', {
+    axios.put('http://localhost:8080/api/putData', {
       id: parseInt(idToUpdate),
         title: updateTitle, 
         message: updateMessage
