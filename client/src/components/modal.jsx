@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
+import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 
 
 class EditModal extends React.Component {
@@ -48,7 +49,7 @@ class EditModal extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.toggle}>EDIT</Button>
+        <Button onClick={this.toggle}><CreateRoundedIcon/></Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>
               <Input  

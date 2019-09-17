@@ -104,8 +104,8 @@ class App extends Component {
   render() {
     const { data } = this.state;
     return (
-      <Container fluid className="page-size">
-        <Card style={{ marginLeft: 10 + "em", marginRight: 10 + "em", marginTop: 2 + "em" }}>
+      <Container fluid className="page-css">
+        <Card className="header-css">
           <Form>
             <FormGroup>
               <Input
@@ -138,19 +138,17 @@ class App extends Component {
             : data.map((dat) => (
               <Col xs="6" sm="4">
                 <Card className="card-size">
-                  <CardHeader><strong>{dat.title}</strong></CardHeader>
+                  <CardHeader><Row><Col sm={9}><strong>{dat.title}</strong></Col><Col sm={3}><Modal id={dat.id} title={dat.title} message={dat.message} updateDB={this.updateDB}/></Col></Row></CardHeader>
                   <CardBody>{dat.message}</CardBody>
                   {/* <li style={{ padding: '10px' }} key={data.message}>
                   <span style={{ color: 'gray' }}> id: </span> {dat.id} <br />
                   <span style={{ color: 'gray' }}> data: </span>
                   {dat.message}
                 </li> */}
-                <Row>
                   <Button color="danger" onClick={() => this.deleteFromDB(dat.id)}>
                     DELETE
                   </Button>
-                  <Modal id={dat.id} title={dat.title} message={dat.message} updateDB={this.updateDB}/>
-                  </Row>
+                  
               </Card>
               <br/>
               </Col>
