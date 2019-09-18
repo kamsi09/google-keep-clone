@@ -5,11 +5,19 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
 
+
 const API_PORT = 3001;
 const app = express();
-app.use(cors());
+//app.use(cors());
 const router = express.Router();
 
+const proxy = require("http-proxy-middleware");
+
+module.exports = function(app) {
+  app.use(
+    proxy(["/api", , "/otherApi"], { target: "http://localhost:3001" })
+  );
+};
 // this is our MongoDB database
 const dbRoute =
   'mongodb+srv://kamsi09:Welcome_09@cluster0-ojefo.mongodb.net/test?retryWrites=true&w=majority';
