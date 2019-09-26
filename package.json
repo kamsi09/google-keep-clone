@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage" : "http://myname.github.io/myapp",
   "scripts": {
     "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\"",
     "build": "react-scripts build"
